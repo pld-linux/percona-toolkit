@@ -50,6 +50,10 @@ best-known utility toolkits for MySQL server administration.
 %{__sed} -i -e '1s,^#!.*env perl,#!%{__perl},' bin/pt-*
 %{__sed} -i -e '1s,^#!.*env bash,#!/bin/bash,' bin/pt-*
 
+# insecure programs, see TODO above
+cd bin
+rm pt-diskstats pt-sift pt-summary pt-mysql-summary pt-collect pt-mext
+
 %build
 %{__perl} Makefile.PL \
 	INSTALLDIRS=vendor
