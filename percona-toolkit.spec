@@ -4,16 +4,20 @@
 #   187
 #   so unless you're masohist never run the programs as root or in host where
 #   you have hostile users
+#   https://bugs.launchpad.net/percona-toolkit/+bug/871438
 # - TODO is to patch code to use mktemp-related or private workdirs
+# - TODO # Mounted Filesystems ########################################
+#/usr/bin/pt-summary[1189]: typeset: %5s: not identifier
+
 %include	/usr/lib/rpm/macros.perl
 Summary:	Essential command-line utilities for MySQL
 Name:		percona-toolkit
-Version:	1.0.1
+Version:	2.0.3
 Release:	1
 License:	GPL v2
 Group:		Applications/Databases
-Source0:	https://www.percona.com/redir/downloads/percona-toolkit/%{name}-%{version}.tar.gz
-# Source0-md5:	1d843b1b3ebd2eacfa3bf95ef2a00557
+Source0:	https://www.percona.com/downloads/percona-toolkit/%{version}/%{name}-%{version}.tar.gz
+# Source0-md5:	10f394c101067b6bf28427c5d4833330
 URL:		http://www.percona.com/software/percona-toolkit/
 BuildRequires:	perl-ExtUtils-MakeMaker
 BuildRequires:	rpm-perlprov >= 4.1-13
@@ -52,7 +56,7 @@ best-known utility toolkits for MySQL server administration.
 
 # insecure programs, see TODO above
 cd bin
-rm pt-diskstats pt-sift pt-summary pt-mysql-summary pt-collect pt-mext
+rm pt-pmp
 
 %build
 %{__perl} Makefile.PL \
