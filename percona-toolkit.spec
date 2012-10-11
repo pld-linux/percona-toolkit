@@ -1,23 +1,12 @@
-# TODO
-# - the programs spit in to the face for security, hardcoded paths writing to /tmp:
-#   $ grep -r /tmp/ bin | wc -l
-#   187
-#   so unless you're masohist never run the programs as root or in host where
-#   you have hostile users
-#   https://bugs.launchpad.net/percona-toolkit/+bug/871438
-# - TODO is to patch code to use mktemp-related or private workdirs
-# - TODO # Mounted Filesystems ########################################
-#/usr/bin/pt-summary[1189]: typeset: %5s: not identifier
-
 %include	/usr/lib/rpm/macros.perl
 Summary:	Essential command-line utilities for MySQL
 Name:		percona-toolkit
-Version:	2.0.3
+Version:	2.1.4
 Release:	1
 License:	GPL v2
 Group:		Applications/Databases
 Source0:	https://www.percona.com/downloads/percona-toolkit/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	10f394c101067b6bf28427c5d4833330
+# Source0-md5:	686313c3037c557ad21b0508f0bc6d5b
 URL:		http://www.percona.com/software/percona-toolkit/
 BuildRequires:	perl-ExtUtils-MakeMaker
 BuildRequires:	rpm-perlprov >= 4.1-13
@@ -51,12 +40,8 @@ best-known utility toolkits for MySQL server administration.
 
 # change shebang to be actual interpreter for rpm to generate deps on the
 # interpreters.
-%{__sed} -i -e '1s,^#!.*env perl,#!%{__perl},' bin/pt-*
+%{__sed} -i -e '1s,^#!.*env *perl,#!%{__perl},' bin/pt-*
 %{__sed} -i -e '1s,^#!.*env bash,#!/bin/bash,' bin/pt-*
-
-# insecure programs, see TODO above
-cd bin
-rm pt-pmp
 
 %build
 %{__perl} Makefile.PL \
