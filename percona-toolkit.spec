@@ -54,6 +54,9 @@ install -d $RPM_BUILD_ROOT%{_sysconfdir}/%{name}
 %{__make} pure_install \
 	PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
 
+ln -s pt-show-grants $RPM_BUILD_ROOT%{_bindir}/mysqldumpgrants
+echo '.so man1/pt-show-grants.1' > $RPM_BUILD_ROOT%{_mandir}/man1/mysqldumpgrants.1
+
 %{__rm} $RPM_BUILD_ROOT%{perl_vendorarch}/auto/%{name}/.packlist
 
 %clean
@@ -64,5 +67,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc Changelog README
 %dir %{_sysconfdir}/%{name}
 %attr(755,root,root) %{_bindir}/pt-*
+%attr(755,root,root) %{_bindir}/mysqldumpgrants
 %{_mandir}/man1/%{name}.1*
 %{_mandir}/man1/pt-*.1*
+%{_mandir}/man1/mysqldumpgrants.1
