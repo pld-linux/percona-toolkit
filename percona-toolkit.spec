@@ -21,10 +21,10 @@ BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-Percona Toolkit is a collection of advanced command-line tools used by
-Percona support staff to perform a variety of MySQL and system tasks
-that are too difficult or complex to perform manually, including:
-
+Percona Toolkit for MySQL is a collection of advanced command-line
+tools used by Percona MySQL Support staff to perform a variety of
+MySQL server and system tasks that are too difficult or complex to
+perform manually, including:
 - Verify master and replica data consistency
 - Efficiently archive rows
 - Find duplicate indexes
@@ -32,8 +32,9 @@ that are too difficult or complex to perform manually, including:
 - Analyze queries from logs and tcpdump
 - Collect vital system information when problems occur
 
-Percona Toolkit is derived from Maatkit and Aspersa, two of the
-best-known utility toolkits for MySQL server administration.
+Percona Toolkit for MySQL is derived from Maatkit and Aspersa, two of
+the best-known MySQL management software utility toolkits for MySQL
+server administration.
 
 %prep
 %setup -q
