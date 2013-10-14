@@ -55,6 +55,8 @@ install -d $RPM_BUILD_ROOT%{_sysconfdir}/%{name}
 %{__make} pure_install \
 	PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
 
+touch $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/percona-version-check
+
 ln -s pt-show-grants $RPM_BUILD_ROOT%{_bindir}/mysqldumpgrants
 echo '.so man1/pt-show-grants.1p' > $RPM_BUILD_ROOT%{_mandir}/man1/mysqldumpgrants.1
 
@@ -67,6 +69,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc Changelog README
 %dir %{_sysconfdir}/%{name}
+%ghost %{_sysconfdir}/%{name}/percona-version-check
 %attr(755,root,root) %{_bindir}/pt-*
 %attr(755,root,root) %{_bindir}/mysqldumpgrants
 %{_mandir}/man1/%{name}.1*
