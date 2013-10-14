@@ -2,7 +2,7 @@
 Summary:	Essential command-line utilities for MySQL
 Name:		percona-toolkit
 Version:	2.2.4
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Applications/Databases
 Source0:	https://www.percona.com/downloads/percona-toolkit/%{version}/%{name}-%{version}.tar.gz
@@ -14,7 +14,6 @@ BuildRequires:	sed >= 4.0
 Requires:	perl-DBD-mysql >= 1.0
 Requires:	perl-DBI >= 1.13
 Requires:	perl-Term-ReadKey >= 2.10
-Obsoletes:	maatkit
 Obsoletes:	mysqldumpgrants
 Obsoletes:	mysqltoolkit
 BuildArch:	noarch
