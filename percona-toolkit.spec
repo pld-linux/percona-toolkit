@@ -2,12 +2,13 @@
 Summary:	Essential command-line utilities for MySQL
 Name:		percona-toolkit
 Version:	2.2.7
-Release:	2
+Release:	3
 License:	GPL v2
 Group:		Applications/Databases
 Source0:	https://www.percona.com/downloads/percona-toolkit/%{version}/%{name}-%{version}.tar.gz
 # Source0-md5:	7514af32e0edff70c4934da2e5e36303
-Source1:	percona-toolkit.conf
+Source1:	%{name}.conf
+Patch0:		no-versioncheck.patch
 URL:		http://www.percona.com/software/percona-toolkit/
 BuildRequires:	perl-ExtUtils-MakeMaker
 BuildRequires:	rpm-perlprov >= 4.1-13
@@ -38,6 +39,9 @@ server administration.
 
 %prep
 %setup -q
+%patch0 -p1
+
+find '(' -name '*~' -o -name '*.orig' ')' -print0 | xargs -0 -r -l512 rm -v
 
 # change shebang to be actual interpreter for rpm to generate deps on the
 # interpreters.
