@@ -7,6 +7,7 @@ License:	GPL v2
 Group:		Applications/Databases
 Source0:	https://www.percona.com/downloads/percona-toolkit/%{version}/%{name}-%{version}.tar.gz
 # Source0-md5:	7514af32e0edff70c4934da2e5e36303
+Source1:	percona-toolkit.conf
 URL:		http://www.percona.com/software/percona-toolkit/
 BuildRequires:	perl-ExtUtils-MakeMaker
 BuildRequires:	rpm-perlprov >= 4.1-13
@@ -54,6 +55,7 @@ install -d $RPM_BUILD_ROOT%{_sysconfdir}/%{name}
 %{__make} pure_install \
 	PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
 
+cp -p %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}
 touch $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/percona-version-check
 
 ln -s pt-show-grants $RPM_BUILD_ROOT%{_bindir}/mysqldumpgrants
@@ -68,6 +70,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc Changelog README
 %dir %{_sysconfdir}/%{name}
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}/%{name}.conf
 %ghost %{_sysconfdir}/%{name}/percona-version-check
 %attr(755,root,root) %{_bindir}/pt-*
 %attr(755,root,root) %{_bindir}/mysqldumpgrants
