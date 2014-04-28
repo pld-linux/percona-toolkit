@@ -18,10 +18,10 @@ BuildRequires:	sed >= 4.0
 Requires:	perl-DBD-mysql >= 1.0
 Requires:	perl-DBI >= 1.13
 Requires:	perl-Term-ReadKey >= 2.10
+Requires:	rc-scripts
+Requires(post,preun):	/sbin/chkconfig
 Obsoletes:	mysqldumpgrants
 Obsoletes:	mysqltoolkit
-Requires(post,preun):	/sbin/chkconfig
-Requires:	rc-scripts
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
