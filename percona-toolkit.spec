@@ -8,16 +8,20 @@ Group:		Applications/Databases
 Source0:	https://www.percona.com/downloads/percona-toolkit/%{version}/%{name}-%{version}.tar.gz
 # Source0-md5:	7514af32e0edff70c4934da2e5e36303
 Source1:	%{name}.conf
+Source2:	pt-kill.init
 Patch0:		no-versioncheck.patch
 URL:		http://www.percona.com/software/percona-toolkit/
 BuildRequires:	perl-ExtUtils-MakeMaker
 BuildRequires:	rpm-perlprov >= 4.1-13
+BuildRequires:	rpmbuild(macros) >= 1.228
 BuildRequires:	sed >= 4.0
 Requires:	perl-DBD-mysql >= 1.0
 Requires:	perl-DBI >= 1.13
 Requires:	perl-Term-ReadKey >= 2.10
 Obsoletes:	mysqldumpgrants
 Obsoletes:	mysqltoolkit
+Requires(post,preun):	/sbin/chkconfig
+Requires:	rc-scripts
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -55,9 +59,11 @@ find '(' -name '*~' -o -name '*.orig' ')' -print0 | xargs -0 -r -l512 rm -v
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_sysconfdir}/%{name}
+install -d $RPM_BUILD_ROOT{%{_sysconfdir}/%{name},/etc/rc.d/init.d}
 %{__make} pure_install \
 	PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
+
+install -p %{SOURCE2} $RPM_BUILD_ROOT/etc/rc.d/init.d/pt-kill
 
 cp -p %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}
 touch $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/percona-version-check
@@ -76,6 +82,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_sysconfdir}/%{name}
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}/%{name}.conf
 %ghost %{_sysconfdir}/%{name}/percona-version-check
+%attr(754,root,root) /etc/rc.d/init.d/pt-kill
 %attr(755,root,root) %{_bindir}/pt-*
 %attr(755,root,root) %{_bindir}/mysqldumpgrants
 %{_mandir}/man1/%{name}.1*
