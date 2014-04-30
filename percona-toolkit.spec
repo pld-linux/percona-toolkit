@@ -11,6 +11,7 @@ Source1:	%{name}.conf
 Source2:	%{name}.tmpfiles
 Source3:	pt-kill.init
 Patch0:		no-versioncheck.patch
+Patch1:		bug-1314696.patch
 URL:		http://www.percona.com/software/percona-toolkit/
 BuildRequires:	perl-ExtUtils-MakeMaker
 BuildRequires:	rpm-perlprov >= 4.1-13
@@ -53,6 +54,7 @@ server administration.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p2
 
 find '(' -name '*~' -o -name '*.orig' ')' -print0 | xargs -0 -r -l512 rm -v
 

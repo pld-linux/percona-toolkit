@@ -1,0 +1,15 @@
+--- /usr/bin/pt-kill~	2014-04-30 18:52:07.000000000 +0300
++++ /usr/bin/pt-kill	2014-04-30 18:53:38.424343889 +0300
+@@ -7484,12 +7488,6 @@
+ 
+ Show help and exit.
+ 
+-=item --host
+-
+-short form: -h; type: string; default: localhost
+-
+-Connect to host.
+-
+ =item --interval
+ 
+ type: time
