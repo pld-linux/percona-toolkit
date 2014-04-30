@@ -27,6 +27,8 @@ config=/etc/percona-toolkit/pt-kill.conf
 sentinel=/var/run/percona-toolkit/pt-kill.sentinel
 pidfile=/var/run/percona-toolkit/pt-kill.pid
 user=percona-toolkit
+# use "empty" DSN, so it uses my.cnf settings
+dsn=';'
 
 # Get service config - may override defaults
 [ -f /etc/sysconfig/pt-kill ] && . /etc/sysconfig/pt-kill
@@ -42,7 +44,7 @@ start() {
 	# FIXME: instead of removing, fix stop process
 	rm -f $sentinel
 	daemon --user $user --redirfds \
-		/usr/bin/pt-kill --config $config --daemonize --pid $pidfile --sentinel $sentinel
+		/usr/bin/pt-kill --config $config --daemonize --pid $pidfile --sentinel $sentinel "$dsn"
 	RETVAL=$?
 
 	# workaround for lack of exit status check:
