@@ -15,11 +15,19 @@ BuildRequires:	perl-ExtUtils-MakeMaker
 BuildRequires:	rpm-perlprov >= 4.1-13
 BuildRequires:	rpmbuild(macros) >= 1.228
 BuildRequires:	sed >= 4.0
+Requires(post,preun):	/sbin/chkconfig
+Requires(postun):	/usr/sbin/groupdel
+Requires(postun):	/usr/sbin/userdel
+Requires(pre):	/bin/id
+Requires(pre):	/usr/bin/getgid
+Requires(pre):	/usr/sbin/groupadd
+Requires(pre):	/usr/sbin/useradd
 Requires:	perl-DBD-mysql >= 1.0
 Requires:	perl-DBI >= 1.13
 Requires:	perl-Term-ReadKey >= 2.10
 Requires:	rc-scripts
-Requires(post,preun):	/sbin/chkconfig
+Provides:	group(percona-toolkit)
+Provides:	user(percona-toolkit)
 Obsoletes:	mysqldumpgrants
 Obsoletes:	mysqltoolkit
 BuildArch:	noarch
@@ -75,6 +83,17 @@ echo '.so man1/pt-show-grants.1p' > $RPM_BUILD_ROOT%{_mandir}/man1/mysqldumpgran
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%pre
+%groupadd -g 310 percona-toolkit
+%useradd -u 310 -d /etc/percona-toolkit -g percona-toolkit -c "Percona Toolkit User" percona-toolkit
+
+
+%postun
+if [ "$1" = "0" ]; then
+	%userremove percona-toolkit
+	%groupremove percona-toolkit
+fi
 
 %files
 %defattr(644,root,root,755)
