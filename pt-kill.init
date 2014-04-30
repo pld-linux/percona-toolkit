@@ -43,6 +43,8 @@ start() {
 	msg_starting "pt-kill"
 	# FIXME: instead of removing, fix stop process
 	rm -f $sentinel
+	# use RC_LOGGING=no, because we need to escape ";" from shell
+	RC_LOGGING=no \
 	daemon --user $user --redirfds \
 		/usr/bin/pt-kill --config $config --daemonize --pid $pidfile --sentinel $sentinel "$dsn"
 	RETVAL=$?
