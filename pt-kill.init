@@ -24,9 +24,9 @@ else
 fi
 
 config=/etc/percona-toolkit/pt-kill.conf
-sentinel=/var/run/pt-kill/pt-kill.sentinel
-pidfile=/var/run/pt-kill/pt-kill.pid
-user=root
+sentinel=/var/run/percona-toolkit/pt-kill.sentinel
+pidfile=/var/run/percona-toolkit/pt-kill.pid
+user=percona-toolkit
 
 # Get service config - may override defaults
 [ -f /etc/sysconfig/pt-kill ] && . /etc/sysconfig/pt-kill
