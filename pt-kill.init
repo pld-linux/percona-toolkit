@@ -41,8 +41,14 @@ start() {
 	msg_starting "pt-kill"
 	# FIXME: instead of removing, fix stop process
 	rm -f $sentinel
-	daemon --user $user --redirfds /usr/bin/pt-kill --config $config --daemonize --pid $pidfile --sentinel $sentinel
+	daemon --user $user --redirfds \
+		/usr/bin/pt-kill --config $config --daemonize --pid $pidfile --sentinel $sentinel
 	RETVAL=$?
+
+	# workaround for lack of exit status check:
+	# https://bugs.launchpad.net/percona-toolkit/+bug/1314500
+	[ ! -f "$pidfile" -a $RETVAL = 0 ] && RETVAL=1
+
 	[ $RETVAL -eq 0 ] && touch /var/lock/subsys/pt-kill
 }
 
