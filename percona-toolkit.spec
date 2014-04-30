@@ -8,7 +8,8 @@ Group:		Applications/Databases
 Source0:	https://www.percona.com/downloads/percona-toolkit/%{version}/%{name}-%{version}.tar.gz
 # Source0-md5:	7514af32e0edff70c4934da2e5e36303
 Source1:	%{name}.conf
-Source2:	pt-kill.init
+Source2:	%{name}.tmpfiles
+Source3:	pt-kill.init
 Patch0:		no-versioncheck.patch
 URL:		http://www.percona.com/software/percona-toolkit/
 BuildRequires:	perl-ExtUtils-MakeMaker
@@ -67,13 +68,16 @@ find '(' -name '*~' -o -name '*.orig' ')' -print0 | xargs -0 -r -l512 rm -v
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_sysconfdir}/%{name},/etc/rc.d/init.d}
+install -d $RPM_BUILD_ROOT{%{_sysconfdir}/%{name},%{systemdtmpfilesdir},/etc/rc.d/init.d} \
+	$RPM_BUILD_ROOT/var/run/%{name}
+
 %{__make} pure_install \
 	PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
 
-install -p %{SOURCE2} $RPM_BUILD_ROOT/etc/rc.d/init.d/pt-kill
+install -p %{SOURCE3} $RPM_BUILD_ROOT/etc/rc.d/init.d/pt-kill
 
 cp -p %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}
+cp -p %{SOURCE2} $RPM_BUILD_ROOT%{systemdtmpfilesdir}/%{name}.conf
 touch $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/percona-version-check
 
 ln -s pt-show-grants $RPM_BUILD_ROOT%{_bindir}/mysqldumpgrants
@@ -104,6 +108,8 @@ fi
 %attr(754,root,root) /etc/rc.d/init.d/pt-kill
 %attr(755,root,root) %{_bindir}/pt-*
 %attr(755,root,root) %{_bindir}/mysqldumpgrants
+%{systemdtmpfilesdir}/%{name}.conf
 %{_mandir}/man1/%{name}.1*
 %{_mandir}/man1/pt-*.1*
 %{_mandir}/man1/mysqldumpgrants.1
+%dir %attr(770,root,percona-toolkit) /var/run/%{name}
