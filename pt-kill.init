@@ -44,6 +44,7 @@ start() {
 	# FIXME: instead of removing, fix stop process
 	rm -f $sentinel
 	# use RC_LOGGING=no, because we need to escape ";" from shell
+	# NOTE: disable --redirfds to be able to see connect errors
 	RC_LOGGING=no \
 	daemon --user $user --redirfds \
 		/usr/bin/pt-kill --config $config --daemonize --pid $pidfile --sentinel $sentinel "$dsn"
