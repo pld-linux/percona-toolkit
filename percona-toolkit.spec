@@ -2,7 +2,7 @@
 Summary:	Essential command-line utilities for MySQL
 Name:		percona-toolkit
 Version:	2.2.11
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Applications/Databases
 Source0:	http://www.percona.com/downloads/percona-toolkit/%{version}/%{name}-%{version}.tar.gz
