@@ -1,18 +1,18 @@
 %include	/usr/lib/rpm/macros.perl
 Summary:	Essential command-line utilities for MySQL
 Name:		percona-toolkit
-Version:	2.2.14
+Version:	2.2.17
 Release:	1
 License:	GPL v2
 Group:		Applications/Databases
 Source0:	https://www.percona.com/downloads/percona-toolkit/%{version}/tarball/%{name}-%{version}.tar.gz
-# Source0-md5:	9fd820a56a55106515c76993ed5631b0
+# Source0-md5:	39d5910f4ef0b14b00c109641a1a3fc5
 Source1:	%{name}.conf
 Source2:	%{name}.tmpfiles
 Source3:	pt-kill.init
 Patch0:		no-versioncheck.patch
 Patch1:		bug-1314696.patch
-URL:		https://www.percona.com/software/percona-toolkit
+URL:		https://www.percona.com/software/mysql-tools/percona-toolkit
 BuildRequires:	perl-ExtUtils-MakeMaker
 BuildRequires:	rpm-perlprov >= 4.1-13
 BuildRequires:	rpmbuild(macros) >= 1.228
