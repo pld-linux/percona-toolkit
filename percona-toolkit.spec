@@ -1,12 +1,12 @@
 %include	/usr/lib/rpm/macros.perl
 Summary:	Essential command-line utilities for MySQL
 Name:		percona-toolkit
-Version:	3.0.5
+Version:	3.0.9
 Release:	1
 License:	GPL v2
 Group:		Applications/Databases
 Source0:	https://www.percona.com/downloads/percona-toolkit/%{version}/source/tarball/%{name}-%{version}.tar.gz
-# Source0-md5:	18aff435b050fe0d0e63acbcd280db55
+# Source0-md5:	731ef3f4479cb07dfe58661beab066e9
 Source1:	%{name}.conf
 Source2:	%{name}.tmpfiles
 Source3:	pt-kill.init
@@ -76,6 +76,13 @@ install -d $RPM_BUILD_ROOT{%{_sysconfdir}/%{name},%{systemdtmpfilesdir},/etc/rc.
 %{__make} pure_install \
 	PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
 
+# seems unneeded (or blame d64a92a author)
+%{__rm} $RPM_BUILD_ROOT%{perl_vendorlib}/*.pm
+%{__rm} -r $RPM_BUILD_ROOT%{perl_vendorlib}/HTTP
+%{__rm} -r $RPM_BUILD_ROOT%{perl_vendorlib}/Lmo
+%{__rm} -r $RPM_BUILD_ROOT%{perl_vendorlib}/Percona
+%{__rm} -r $RPM_BUILD_ROOT%{perl_vendorlib}/bash
+
 install -p %{SOURCE3} $RPM_BUILD_ROOT/etc/rc.d/init.d/pt-kill
 
 cp -p %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}
@@ -93,7 +100,6 @@ rm -rf $RPM_BUILD_ROOT
 %pre
 %groupadd -g 310 percona-toolkit
 %useradd -u 310 -d /etc/percona-toolkit -g percona-toolkit -c "Percona Toolkit User" percona-toolkit
-
 
 %postun
 if [ "$1" = "0" ]; then
