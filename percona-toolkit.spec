@@ -1,12 +1,12 @@
 %include	/usr/lib/rpm/macros.perl
 Summary:	Essential command-line utilities for MySQL
 Name:		percona-toolkit
-Version:	3.0.9
+Version:	3.0.13
 Release:	1
 License:	GPL v2
 Group:		Applications/Databases
 Source0:	https://www.percona.com/downloads/percona-toolkit/%{version}/source/tarball/%{name}-%{version}.tar.gz
-# Source0-md5:	731ef3f4479cb07dfe58661beab066e9
+# Source0-md5:	6bf2efc0924354444349a54ee739f45d
 Source1:	%{name}.conf
 Source2:	%{name}.tmpfiles
 Source3:	pt-kill.init
