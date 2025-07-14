@@ -52,8 +52,8 @@ server administration.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p2
+%patch -P0 -p1
+%patch -P1 -p2
 
 find '(' -name '*~' -o -name '*.orig' ')' -print0 | xargs -0 -r -l512 rm -v
 
